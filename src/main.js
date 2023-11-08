@@ -30,3 +30,4 @@ let backgroundspeed = 4;
 let car = null;
 let bg = null;
 const carVelocity = 150;
+let centerX = game.config.width/2
