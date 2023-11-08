@@ -11,12 +11,14 @@ class Play extends Phaser.Scene {
         this.load.image('cone', '/assets/NewCone.png')
         this.load.image('barricade', '/assets/NewBarricade.png')
         this.load.image('background', '/assets/Street.png')
+        this.load.spritesheet('explosion', '/assets/explosion3.png', {frameWidth: 125, frameHeight: 125, startFrame: 0, endFrame: 6});
 
     }
 
     create() {
         this.objectSpeed = -150;
         this.objectSpeedMax = -1000
+        backgroundspeed = 2;
         this.bg = this.add.tileSprite(0,0, 960, 640, 'background').setOrigin(0,0)
         car = this.physics.add.sprite(32, game.config.height/2, 'wcar').setOrigin(0.5);
         car.setCollideWorldBounds(true);
@@ -42,6 +44,21 @@ class Play extends Phaser.Scene {
                 this.addObjects();
             }
         })
+        this.scoreTimer = this.time.addEvent({
+            delay: 1000,
+            callback: this.difficulty,
+            callbackScope: this,
+            loop: true
+        })
+        this.score = 0;
+        this.tracker = this.add.text(800, 25, 'Time: ' + this.score, { fontFamily: 'After Hours', fontSize: 24 } )
+        this.hs = this.add.text(400, 25, 'High Score: ' + highScore, { fontFamily: 'After Hours', fontSize: 24 })
+        this.mode = this.add.text(50, 25, 'Mode: Easy', { fontFamily: 'After Hours', fontSize: 24 })
+        this.anims.create({
+            key: 'explode',
+            frames: this.anims.generateFrameNumbers('explosion', { start: 0, end: 6, first: 0 }),
+            frameRate: 15
+        });
         cursors = this.input.keyboard.createCursorKeys();
     }
     
@@ -100,5 +117,30 @@ class Play extends Phaser.Scene {
         backgroundspeed = 0
         this.cameras.main.shake(2500, 0.0075);
         car.destroy();
+        let boom = this.add.sprite(car.x, car.y - 40, 'explosion').setOrigin(0, 0);
+        boom.anims.play('explode');
+        if (highScore < this.score) {
+            highScore = this.score;
+        }
+        
+        this.time.delayedCall(1500, () => { this.scene.start('gameOverScene'); });
     }
+
+    difficulty() {
+        if (!car.destroyed) {
+            this.score += 1
+            this.tracker.setText('Time: ' + this.score)
+                if (this.score % 5 == 0) {
+                    if(this.objectSpeed >= this.objectSpeedMax) {
+                        this.objectSpeed -= 35;
+                    }
+                }
+                if (this.score > 20) {
+                    this.mode.setText('Mode: Medium')
+                }
+                if (this.score > 40) {
+                    this.mode.setText('Mode: Hard')
+                }
+            }
+        }
 }

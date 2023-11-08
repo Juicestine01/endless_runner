@@ -24,8 +24,7 @@ let config = {
 
 let game = new Phaser.Game(config);
 let cursors;
-let highScore;
-let newHighScore = false;
+let highScore = 0;
 let backgroundspeed = 4;
 let car = null;
 let bg = null;
