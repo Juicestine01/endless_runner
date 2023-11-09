@@ -7,6 +7,7 @@ class Title extends Phaser.Scene {
         this.add.text(game.config.width/2, game.config.height/3, 'SWIMMING TRHU TRAFFIC', { fontFamily: 'After Hours', fontSize: 64 } ).setOrigin(0.5);
         this.add.text(game.config.width/2, game.config.height/2 +64, 'Use the UP and DOWN ARROWS to drive through traffic', { fontFamily: 'After Hours', fontSize: 32 }).setOrigin(0.5)
         this.add.text(game.config.width/2, game.config.height/2 + 128, 'Press UP ARROW to Start', { fontFamily: 'After Hours', fontSize: 32 } ).setOrigin(0.5)
+        this.add.text(game.config.width/2, game.config.height/2 + 192, 'Press DOWN ARROW for Credits', { fontFamily: 'After Hours', fontSize: 32 } ).setOrigin(0.5)
 
         cursors = this.input.keyboard.createCursorKeys();
     }
@@ -14,6 +15,9 @@ class Title extends Phaser.Scene {
     update() {
         if (Phaser.Input.Keyboard.JustDown(cursors.up)) {
             this.scene.start('playScene')
+        }
+        if (Phaser.Input.Keyboard.JustDown(cursors.down)) {
+            this.scene.start('creditsScene')
         }
     }
 

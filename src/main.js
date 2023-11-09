@@ -19,7 +19,7 @@ let config = {
             }
         }
     },
-    scene: [ Title, Play, GameOver ]
+    scene: [ Title, Play, GameOver, Credits ]
 }
 
 let game = new Phaser.Game(config);

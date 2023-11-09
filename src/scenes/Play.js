@@ -11,6 +11,11 @@ class Play extends Phaser.Scene {
         this.load.image('cone', '/assets/NewCone.png')
         this.load.image('barricade', '/assets/NewBarricade.png')
         this.load.image('background', '/assets/Street.png')
+        this.load.audio('bgm', '/assets/bgm.mp3')
+        this.load.audio('carup', '/assets/carupsound.mp3')
+        this.load.audio('cardown', '/assets/cardownsound.mp3')
+        this.load.audio('CollisionNoise', '/assets/CollisionNoise.mp3')
+        this.load.audio('DifficultyChange', '/assets/DifficultyChange.mp3')
         this.load.spritesheet('explosion', '/assets/explosion3.png', {frameWidth: 125, frameHeight: 125, startFrame: 0, endFrame: 6});
 
     }
@@ -18,6 +23,13 @@ class Play extends Phaser.Scene {
     create() {
         this.objectSpeed = -150;
         this.objectSpeedMax = -1000
+        this.bgm = this.sound.add('bgm', {
+            mute: false,
+            volume: 1,
+            rate: 1,
+            loop: true
+        });
+        this.bgm.play();
         backgroundspeed = 2;
         this.bg = this.add.tileSprite(0,0, 960, 640, 'background').setOrigin(0,0)
         car = this.physics.add.sprite(32, game.config.height/2, 'wcar').setOrigin(0.5);
@@ -67,9 +79,11 @@ class Play extends Phaser.Scene {
         if (!car.destroyed) {
             if (cursors.up.isDown) {
                 car.body.velocity.y -= carVelocity;
+                this.sound.play('carup', { volume: 1 });
             }
             else if (cursors.down.isDown) {
                 car.body.velocity.y += carVelocity;
+                this.sound.play('cardown', { volume: 1 });
             }
             this.physics.world.collide(car, this.barricadeGroup, this.collision, null, this)
             this.physics.world.collide(car, this.carGroup, this.collision, null, this)
@@ -119,10 +133,11 @@ class Play extends Phaser.Scene {
         car.destroy();
         let boom = this.add.sprite(car.x, car.y - 40, 'explosion').setOrigin(0, 0);
         boom.anims.play('explode');
+        this.sound.play('CollisionNoise', { volume: 0.5 });
         if (highScore < this.score) {
             highScore = this.score;
         }
-        
+        this.bgm.stop();
         this.time.delayedCall(1500, () => { this.scene.start('gameOverScene'); });
     }
 
@@ -133,6 +148,7 @@ class Play extends Phaser.Scene {
                 if (this.score % 5 == 0) {
                     if(this.objectSpeed >= this.objectSpeedMax) {
                         this.objectSpeed -= 35;
+                        this.sound.play('DifficultyChange', { volume: 0.25 });
                     }
                 }
                 if (this.score > 20) {
