@@ -1,7 +1,8 @@
 // Justin Xu
 // Swimming Thru Traffic
 // Hours Spent: 25
-//Creative Tilt: I am proud of randomly spawning in from the 3 obtacles in 3 different locations and 
+//Creative Tilt: I am proud of randomly spawning in from the 3 obtacles in 3 different locations,
+// spawning different color car obstacles and 
 // I am proud of the art because I did it all myself in pixilart.com
 // An endless runner dodging game
 

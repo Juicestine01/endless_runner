@@ -4,19 +4,19 @@ class Play extends Phaser.Scene {
     }
 
     preload() {
-        this.load.image('wcar', '/assets/NewWCar.png')
-        this.load.image('rcar', '/assets/NewRCar.png')
-        this.load.image('bcar', '/assets/NewBCar.png')
-        this.load.image('gcar', '/assets/NewGCar.png')
-        this.load.image('cone', '/assets/NewCone.png')
-        this.load.image('barricade', '/assets/NewBarricade.png')
-        this.load.image('background', '/assets/Street.png')
-        this.load.audio('bgm', '/assets/bgm.mp3')
-        this.load.audio('carup', '/assets/carupsound.mp3')
-        this.load.audio('cardown', '/assets/cardownsound.mp3')
-        this.load.audio('CollisionNoise', '/assets/CollisionNoise.mp3')
-        this.load.audio('DifficultyChange', '/assets/DifficultyChange.mp3')
-        this.load.spritesheet('explosion', '/assets/explosion3.png', {frameWidth: 125, frameHeight: 125, startFrame: 0, endFrame: 6});
+        this.load.image('wcar', './assets/NewWCar.png')
+        this.load.image('rcar', './assets/NewRCar.png')
+        this.load.image('bcar', './assets/NewBCar.png')
+        this.load.image('gcar', './assets/NewGCar.png')
+        this.load.image('cone', './assets/NewCone.png')
+        this.load.image('barricade', './assets/NewBarricade.png')
+        this.load.image('background', './assets/Street.png')
+        this.load.audio('bgm', './assets/bgm.mp3')
+        this.load.audio('carup', './assets/carupsound.mp3')
+        this.load.audio('cardown', './assets/cardownsound.mp3')
+        this.load.audio('CollisionNoise', './assets/CollisionNoise.mp3')
+        this.load.audio('DifficultyChange', './assets/DifficultyChange.mp3')
+        this.load.spritesheet('explosion', './assets/explosion3.png', {frameWidth: 125, frameHeight: 125, startFrame: 0, endFrame: 6});
 
     }
 
